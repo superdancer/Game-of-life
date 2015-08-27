@@ -1,0 +1,47 @@
+#include "GameOfLife.hpp"
+#include "CppUTest/TestHarness.h"
+
+TEST_GROUP(GameOfLife)
+{
+    GameOfLife * hhg;
+
+    void setup()
+    {
+        hhg = new GameOfLife();
+    }
+    void teardown()
+    {
+        delete hhg;
+    }
+};
+
+
+
+
+TEST(GameOfLife, isEdge_return_true)
+{
+    LONGS_EQUAL(true, hhg->isEdge(0,5));
+    LONGS_EQUAL(true, hhg->isEdge(5,0));
+    LONGS_EQUAL(true, hhg->isEdge(24,5));
+    LONGS_EQUAL(true, hhg->isEdge(5,49));
+}
+TEST(GameOfLife, isEdge_return_false)
+{
+    LONGS_EQUAL(false, hhg->isEdge(5,5));
+    LONGS_EQUAL(false, hhg->isEdge(14,15));
+}
+TEST(GameOfLife, calcNextGeneration_return_0or1)
+{
+    LONGS_EQUAL(0, hhg->calcNextGeneration(13,14));
+    LONGS_EQUAL(1, hhg->calcNextGeneration(15,15));
+}
+TEST(GameOfLife, initializeArray_return_nothing)
+{
+    hhg->initializeArray();
+}
+TEST(GameOfLife, aliveNeighbours_return_count)
+{
+    LONGS_EQUAL(7, hhg->aliveNeighbours(13,14));
+    LONGS_EQUAL(2, hhg->aliveNeighbours(12,12));
+    LONGS_EQUAL(5, hhg->aliveNeighbours(13,13));
+}
